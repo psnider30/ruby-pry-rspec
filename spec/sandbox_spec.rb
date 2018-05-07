@@ -17,4 +17,33 @@ describe 'group tests: ' do
     expect(factorial(-2)).to eq('please put in a positive integer')
   end
 
+  it 'groups files by owner' do
+    files = {
+    'Input.txt' => 'Randy',
+    'Code.py' => 'Stan',
+    'Output.txt' => 'Randy'
+    }
+    answer = {"Randy"=>["Input.txt", "Output.txt"], "Stan"=>["Code.py"]}
+    expect(group_by_owners(files)).to eq(answer)
+  end
+
+  it 'it uses .transform_keys to transform keys in hash' do
+    h = {'1': 'bat', '2': 'cat', '3': 'hat', '4': 'rat', '5': 'sat'}
+
+    h_by_int = h.transform_keys { |k| k.to_s.to_i }
+    expect(h_by_int.key('hat')).to eq(3)
+  end
+
+  it 'uses hash.slice' do
+    address = {
+      street_address: '660 Palo Alto Ave',
+      city: 'Palo Alto',
+      state: 'CA',
+      country:'U.S.',
+      zip:'94301'
+    }
+    city_state = { city: 'Palo Alto', state: 'CA'}
+    expect(address.slice(:city, :state)).to eq(city_state)
+  end
+
 end
